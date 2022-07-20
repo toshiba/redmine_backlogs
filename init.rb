@@ -48,11 +48,11 @@ end
 
 
 Redmine::Plugin.register :redmine_backlogs do
-  requires_redmine :version_or_higher => '3.4.0'
+  requires_redmine :version_or_higher => '4.1.0'
   name 'Redmine Backlogs'
   author "friflaj,Mark Maglana,John Yani,mikoto20000,Frank Blendinger,Bo Hansen,stevel,Patrick Atamaniuk"
   description 'A plugin for agile teams'
-  version 'v1.3.0'
+  version 'v1.3.1'
 
   settings :default => {
                          :story_trackers            => nil,
