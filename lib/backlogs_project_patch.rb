@@ -209,20 +209,24 @@ module Backlogs
       # 2. share to project,
       # 3. share to project but are scoped to project and subprojects
       #depending on sharing mode
-      def open_shared_sprints
+      def open_shared_sprints(as_version: false)
         if Backlogs.setting[:sharing_enabled]
           order = Backlogs.setting[:sprint_sort_order] == 'desc' ? 'DESC' : 'ASC'
-          shared_versions.visible.where(:status => ['open', 'locked']).order("sprint_start_date #{order}, effective_date #{order}").collect{|v| v.becomes(RbSprint) }
+          ret = shared_versions.visible.where(:status => ['open', 'locked']).order("sprint_start_date #{order}, effective_date #{order}")
+          ret = ret.collect{|v| v.becomes(RbSprint) } unless as_version
+          ret
         else #no backlog sharing
           RbSprint.open_sprints(self)
         end
       end
 
       #depending on sharing mode
-      def closed_shared_sprints
+      def closed_shared_sprints(as_version: false)
         if Backlogs.setting[:sharing_enabled]
           order = Backlogs.setting[:sprint_sort_order] == 'desc' ? 'DESC' : 'ASC'
-          shared_versions.visible.where(:status => ['closed']).order("sprint_start_date #{order}, effective_date #{order}").collect{|v| v.becomes(RbSprint) }
+          ret = shared_versions.visible.where(:status => ['closed']).order("sprint_start_date #{order}, effective_date #{order}")
+          ret = ret.collect{|v| v.becomes(RbSprint) } unless as_version
+          ret
         else #no backlog sharing
           RbSprint.closed_sprints(self)
         end
@@ -230,8 +234,8 @@ module Backlogs
 
       def active_sprint
         time = (Time.zone ? Time.zone : Time).now
-        @active_sprint ||= RbSprint.where("project_id = ? and status = 'open' and not (sprint_start_date is null or effective_date is null) and ? >= sprint_start_date and ? <= effective_date",
-          self.id, time.end_of_day, time.beginning_of_day
+        @active_sprint ||= open_shared_sprints(as_version: true).where("#{RbSprint.table_name}.status = 'open' and not (sprint_start_date is null or effective_date is null) and ? >= sprint_start_date and ? <= effective_date",
+          time.end_of_day, time.beginning_of_day
         ).take
       end
 
