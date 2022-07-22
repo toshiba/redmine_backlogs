@@ -233,10 +233,15 @@ module Backlogs
       end
 
       def active_sprint
-        time = (Time.zone ? Time.zone : Time).now
-        @active_sprint ||= open_shared_sprints(as_version: true).where("#{RbSprint.table_name}.status = 'open' and not (sprint_start_date is null or effective_date is null) and ? >= sprint_start_date and ? <= effective_date",
-          time.end_of_day, time.beginning_of_day
-        ).take
+        if @active_sprint.nil?
+          time = (Time.zone ? Time.zone : Time).now
+          active_sprints = open_shared_sprints(as_version: true).where("#{RbSprint.table_name}.status = 'open' and not (sprint_start_date is null or effective_date is null) and ? >= sprint_start_date and ? <= effective_date",
+            time.end_of_day, time.beginning_of_day
+          ).collect{|v| v.becomes(RbSprint) }
+          @active_sprint = active_sprints.find{|sprint| sprint.stories.find{|story| story.project_id == id }}
+        end
+
+        @active_sprint
       end
 
       def open_releases_by_date
