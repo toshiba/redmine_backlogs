@@ -189,6 +189,8 @@ en:
   rb_label_copy_tasks_none: None
   rb_label_copy_tasks_open: Open
   rb_label_link_to_original: "Include link to original story"
+  rb_label_taskboard_view_story_order_by_position:  "position(default)"
+  rb_label_taskboard_view_story_order_by_alpha:     "alphabetical"
   rb_label_timelog_disable: Disable
   rb_label_timelog_enable: Enable
   rb_project_settings_update_error: "Error while updating settings"
@@ -200,6 +202,7 @@ en:
   rb_task_cards_story_follows_tasks: "Tasks followed by their story"
   rb_task_cards_tasks_follow_story: "Story followed by their tasks"
   rb_taskboard_card_order: "Card print order"
+  rb_taskboard_view_story_order: "Story order on taskboard"
   rb_timelog_from_taskboard: "Timelog from taskboard"
   remaining_story_points: "Remaining story points"
   story_description: Description
