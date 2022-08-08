@@ -323,6 +323,9 @@ private
               "))" +
           "))" +
           " WHERE pp.lft >= #{r.lft} AND pp.rgt <= #{r.rgt}" +
+                # exclude 'closed' versions or releases.
+                # NOTE: both tables have 'status' column and 'closed' value.
+                " AND drp.status <> 'closed'" +
           " GROUP BY pp.id;"
         sql
       end
