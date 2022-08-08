@@ -286,6 +286,14 @@
   <%= check_box_tag("settings[show_project_name]",'enabled',
             Backlogs.setting[:show_project_name]) %>
 </p>
+<p>
+  <%= content_tag(:label, l(:rb_taskboard_view_story_order)) %>
+  <%= select_tag("settings[taskboard_view_story_order]",
+            options_for_select([
+                  [l(:rb_label_taskboard_view_story_order_by_position), 'position'],
+                  [l(:rb_label_taskboard_view_story_order_by_alpha),    'alpha']
+                ], Backlogs.setting[:taskboard_view_story_order])) %>
+</p>
 </fieldset>
 
 <fieldset>
