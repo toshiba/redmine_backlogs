@@ -17,10 +17,12 @@ class RbSprint < Version
 
   def self.by_date_clause
     dir = Backlogs.setting[:sprint_sort_order] == 'desc' ? 'DESC' : 'ASC'
+    Arel.sql(
     "CASE #{table_name}.sprint_start_date WHEN NULL THEN 1 ELSE 0 END #{dir},
      #{table_name}.sprint_start_date #{dir},
      CASE #{table_name}.effective_date WHEN NULL THEN 1 ELSE 0 END #{dir},
      #{table_name}.effective_date #{dir}"
+    )
   end
   scope :by_date, -> { order(by_date_clause) }
   scope :in_project, lambda {|project| where(:project_id => project) }
