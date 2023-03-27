@@ -68,7 +68,7 @@ RB.BoardUpdater = RB.Object.create({
   },
 
   poll: function() {
-    if(!RB.$('body').hasClass('no_autorefresh')){
+    if(!RB.$('body').hasClass('no_autorefresh') && this.pollWait > 0){
       var self = this;
       setTimeout(function(){ self.getData(); }, self.pollWait);
     } else {
@@ -105,10 +105,14 @@ RB.BoardUpdater = RB.Object.create({
   },
 
   updateAutorefreshText: function(){
-    if(RB.$('body').hasClass('no_autorefresh')){
-      RB.$('#disable_autorefresh').text('Enable Auto-refresh');
+    if (RB.constants.autorefresh_wait > 0) {
+      if(RB.$('body').hasClass('no_autorefresh')){
+        RB.$('#disable_autorefresh').text('Enable Auto-refresh');
+      } else {
+        RB.$('#disable_autorefresh').text('Disable Auto-refresh');
+      }
     } else {
-      RB.$('#disable_autorefresh').text('Disable Auto-refresh');
+      RB.$('#disable_autorefresh').hide();
     }
   }
 });
