@@ -55,7 +55,7 @@ class RbReleasesController < RbApplicationController
     rescue => e
       Rails.logger.debug e
       Rails.logger.debug e.backtrace.join("\n")
-      render :text => e.message.blank? ? e.to_s : e.message, :status => 400
+      render :plain => e.message.blank? ? e.to_s : e.message, :status => 400
       return
     end
 

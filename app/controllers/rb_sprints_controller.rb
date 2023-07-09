@@ -66,7 +66,7 @@ class RbSprintsController < RbApplicationController
 
   def reset
     unless @sprint.sprint_start_date
-      render :text => 'Sprint without start date cannot be reset', :status => 400
+      render :plain => 'Sprint without start date cannot be reset', :status => 400
       return
     end
 

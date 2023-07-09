@@ -8,7 +8,7 @@ class RbImpedimentsController < RbApplicationController
     begin
       @impediment = RbTask.create_with_relationships(params, User.current.id, @project.id, true)
     rescue => e
-      render :text => e.message.blank? ? e.to_s : e.message, :status => 400
+      render :plain => e.message.blank? ? e.to_s : e.message, :status => 400
       return
     end
 
@@ -27,7 +27,7 @@ class RbImpedimentsController < RbApplicationController
     begin
       result = @impediment.update_with_relationships(params)
     rescue => e
-      render :text => e.message.blank? ? e.to_s : e.message, :status => 400
+      render :plain => e.message.blank? ? e.to_s : e.message, :status => 400
       return
     end
     status = (result ? 200 : 400)
