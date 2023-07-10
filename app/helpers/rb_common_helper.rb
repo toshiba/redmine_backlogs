@@ -1,4 +1,3 @@
-require 'color'
 require 'nokogiri'
 
 module RbCommonHelper

@@ -1,7 +1,6 @@
 require_dependency 'user'
 
-module Backlogs
-  module IssueStatusPatch
+module BacklogsIssueStatusPatch
     def self.included(base) # :nodoc:
       base.extend(ClassMethods)
       base.send(:include, InstanceMethods)
@@ -33,7 +32,6 @@ module Backlogs
         return states.include?(backlog(tracker))
       end
     end
-  end
 end
 
-IssueStatus.send(:include, Backlogs::IssueStatusPatch) unless IssueStatus.included_modules.include? Backlogs::IssueStatusPatch
+IssueStatus.send(:include, BacklogsIssueStatusPatch) unless IssueStatus.included_modules.include? BacklogsIssueStatusPatch

@@ -1,18 +1,7 @@
 require_dependency 'issue_query'
 require 'erb'
 
-module Backlogs
-  class RbERB
-    def initialize(s)
-      @sql = ERB.new(s)
-    end
-
-    def to_s
-      return @sql.result
-    end
-  end
-
-  module IssueQueryPatch
+module BacklogsIssueQueryPatch
 
     def joins_for_order_statement(order_options)
       joins = super
@@ -124,7 +113,6 @@ module Backlogs
       !project.nil? and project.module_enabled?('backlogs')
     end
 
-  end
 end
 
-IssueQuery.prepend(Backlogs::IssueQueryPatch)
+IssueQuery.prepend(BacklogsIssueQueryPatch)

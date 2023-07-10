@@ -1,8 +1,6 @@
 require_dependency 'redmine/helpers/time_report'
 
-module Backlogs
-  module TimeReportPatch
-
+module BacklogsTimeReportPatch
     def load_available_criteria
       super
       @available_criteria["release"] =
@@ -13,8 +11,6 @@ module Backlogs
         }
       @available_criteria
     end
-
-  end
 end
 
-Redmine::Helpers::TimeReport.prepend(Backlogs::TimeReportPatch)
+Redmine::Helpers::TimeReport.prepend(BacklogsTimeReportPatch)

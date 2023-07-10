@@ -1,7 +1,6 @@
 require_dependency 'version'
 
-module Backlogs
-  module VersionPatch
+module BacklogsVersionPatch
     def self.included(base) # :nodoc:
       base.extend(ClassMethods)
       base.send(:include, InstanceMethods)
@@ -45,7 +44,6 @@ module Backlogs
       end
 
     end
-  end
 end
 
-Version.send(:include, Backlogs::VersionPatch) unless Version.included_modules.include? Backlogs::VersionPatch
+Version.send(:include, BacklogsVersionPatch) unless Version.included_modules.include? BacklogsVersionPatch

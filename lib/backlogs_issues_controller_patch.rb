@@ -3,8 +3,7 @@ require 'rubygems'
 require 'nokogiri'
 require 'json'
 
-module Backlogs
-  module IssuesControllerPatch
+module BacklogsIssuesControllerPatch
     def self.included(base) # :nodoc:
       base.extend(ClassMethods)
       base.send(:include, InstanceMethods)
@@ -46,7 +45,6 @@ module Backlogs
         end
       end
     end
-  end
 end
 
-IssuesController.send(:include, Backlogs::IssuesControllerPatch) unless IssuesController.included_modules.include? Backlogs::IssuesControllerPatch
+IssuesController.send(:include, BacklogsIssuesControllerPatch) unless IssuesController.included_modules.include? BacklogsIssuesControllerPatch

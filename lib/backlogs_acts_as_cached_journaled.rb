@@ -1,5 +1,4 @@
-module ActiveRecord; module Acts; end; end
-module ActiveRecord::Acts::ActsAsRbCachedJournaled
+module BacklogsActsAsCachedJournaled
 
   def self.included(base)
     base.extend(ClassMethods)
@@ -15,4 +14,4 @@ module ActiveRecord::Acts::ActsAsRbCachedJournaled
   end
 end
 
-ActiveRecord::Base.send(:include, ActiveRecord::Acts::ActsAsRbCachedJournaled)
+ActiveRecord::Base.send(:include, BacklogsActsAsCachedJournaled)

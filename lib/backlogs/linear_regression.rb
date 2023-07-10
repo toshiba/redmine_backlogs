@@ -1,4 +1,3 @@
-
 module Backlogs
   # Creates a linear fit of a set of days and data
   class LinearRegression

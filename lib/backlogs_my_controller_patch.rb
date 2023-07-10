@@ -1,7 +1,6 @@
 require_dependency 'my_controller'
 
-module Backlogs
-  module MyControllerPatch
+module BacklogsMyControllerPatch
     def self.included(base) # :nodoc:
       base.extend(ClassMethods)
       base.send(:include, InstanceMethods)
@@ -27,7 +26,6 @@ module Backlogs
         end
       end
     end
-  end
 end
 
-MyController.send(:include, Backlogs::MyControllerPatch) unless MyController.included_modules.include? Backlogs::MyControllerPatch
+MyController.send(:include, BacklogsMyControllerPatch) unless MyController.included_modules.include? BacklogsMyControllerPatch

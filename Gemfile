@@ -5,3 +5,4 @@ gem "icalendar"
 gem "open-uri-cached"
 gem "prawn"
 gem 'json'
+gem 'matrix'

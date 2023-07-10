@@ -222,7 +222,8 @@ module BacklogsPrintableCards
 
     @@layouts ||= {}
     begin
-      layouts = YAML::load_file(File.dirname(__FILE__) + '/labels/labels.yaml')
+      label_file = File.dirname(__FILE__) + '/labels/labels.yaml'
+      layouts = YAML.respond_to?(:unsafe_load_file) ? YAML.unsafe_load_file(label_file) : YAML::load_file(label_file)
       layouts.each_pair{|key, spec|
         if spec.instance_of?(CardPageLayout)
           layout = spec #new yaml stores and restores our class

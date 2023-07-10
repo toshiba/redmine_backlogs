@@ -1,8 +1,7 @@
 include RbCommonHelper
 include ContextMenusHelper
 
-module BacklogsPlugin
-  module Hooks
+module BacklogsHooks
     class LayoutHook < Redmine::Hook::ViewListener
       # this ought to be view_issues_sidebar_queries_bottom, but
       # the entire queries toolbar is disabled if you don't have
@@ -430,5 +429,4 @@ module BacklogsPlugin
       end
 
     end
-  end
 end
