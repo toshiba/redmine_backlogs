@@ -1,5 +1,4 @@
 require 'prawn'
-require 'backlogs_printable_cards'
 
 include RbCommonHelper
 
@@ -9,14 +8,14 @@ class RbStoriesController < RbApplicationController
 
   def index
     if ! BacklogsPrintableCards::CardPageLayout.selected
-      render :text => "No label stock selected. How did you get here?", :status => 500
+      render :plain => "No label stock selected. How did you get here?", :status => 500
       return
     end
 
     begin
       cards = BacklogsPrintableCards::PrintableCards.new(params[:sprint_id] ? @sprint.stories : RbStory.product_backlog(@project), params[:sprint_id], current_language)
     rescue Prawn::Errors::CannotFit
-      render :text => "There was a problem rendering the cards. A possible error could be that the selected font exceeds a render box", :status => 500
+      render :plain => "There was a problem rendering the cards. A possible error could be that the selected font exceeds a render box", :status => 500
       return
     end
 

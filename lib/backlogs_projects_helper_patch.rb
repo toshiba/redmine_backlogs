@@ -1,8 +1,6 @@
 require_dependency 'projects_helper'
 
-module Backlogs
-  module ProjectsHelperPatch
-
+module BacklogsProjectsHelperPatch
     def project_settinags_tabs
       tabs = super
       tabs << {:name => 'backlogs',
@@ -14,10 +12,9 @@ module Backlogs
       return tabs
     end
 
-  end
 end
 
 module ProjectsHelper
   unloadable
-  prepend Backlogs::ProjectsHelperPatch
+  prepend BacklogsProjectsHelperPatch
 end

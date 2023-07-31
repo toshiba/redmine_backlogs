@@ -1,57 +1,9 @@
 module Backlogs
   module ActiveRecord
-    def add_condition(options, condition, conjunction = 'AND')
-      #puts("add_condition op=#{options} cond=#{condition} conj=#{conjunction}")
-      #4/0
-      if condition.is_a? String
-        add_condition(options, [condition], conjunction)
-      elsif condition.is_a? Hash
-        add_condition!(options, [condition.keys.map { |attr| "#{attr}=?" }.join(' AND ')] + condition.values, conjunction)
-      elsif condition.is_a? Array
-        options[:conditions] ||= []
-        options[:conditions][0] += " #{conjunction} (#{condition.shift})" unless options[:conditions].empty?
-        options[:conditions] = options[:conditions] + condition
-      else
-        raise "don't know how to handle this condition type"
-      end
-    end
-    module_function :add_condition
-
-    module Attributes
-      def self.included receiver
-        receiver.extend ClassMethods
-      end
-
-      module ClassMethods
-        def rb_sti_class
-          return self.ancestors.select{|klass| klass.name !~ /^Rb/ && klass.ancestors.include?(::ActiveRecord::Base)}[0]
-        end
-      end
-
-      def available_custom_fields
-        klass = self.class.respond_to?(:rb_sti_class) ? self.class.rb_sti_class : self.class
-        CustomField.where("type = '#{klass.name}CustomField'").order('position')
-      end
-
-      def journalized_update_attributes!(attribs)
-        self.init_journal(User.current)
-        attribs = attribs.to_enum.to_h
-        return self.update_attributes!(attribs)
-      end
-      def journalized_update_attributes(attribs)
-        self.init_journal(User.current)
-        attribs = attribs.to_enum.to_h
-        return self.update_attributes(attribs)
-      end
-      def journalized_update_attribute(attrib, v)
-        self.init_journal(User.current)
-        return self.update_attribute(attrib, v)
-      end
-    end
-
     module ListWithGaps
       def self.included(base)
         base.extend(ClassMethods)
+        base.include(InstanceMethods)
       end
 
       module ClassMethods
@@ -188,9 +140,7 @@ module Backlogs
           where(whereclause).
           order(orderclause).first
       end
-
     end
   end
 end
-
 ActiveRecord::Base.send(:include, Backlogs::ActiveRecord::ListWithGaps) unless ActiveRecord::Base.included_modules.include? Backlogs::ActiveRecord::ListWithGaps

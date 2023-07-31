@@ -240,12 +240,4 @@ module Backlogs
     BLACK = Color.new(0,0,0).freeze
 
   end
-
-  # "Global" method for creating Color objects, eg:
-  #   new_color = rgb(params[:new_color])
-  #   style="border: 1px solid <%= rgb(10,50,80).lighten %>"
-  def rgb(*args)
-    Color.parse(*args)
-  end
-  module_function :rgb
 end

@@ -1,5 +1,4 @@
 require 'date'
-require 'linear_regression'
 
 class ReleaseBurndown
   def initialize(release)
@@ -39,7 +38,7 @@ class ReleaseBurndown
 
     baseline = [0] * @days.size
 
-    series = Backlogs::MergedArray.new
+    series = BacklogsMergedArray.new
     series.merge(:total_points => baseline.dup)
     series.merge(:added_points => baseline.dup)
     series.merge(:closed_points => baseline.dup)

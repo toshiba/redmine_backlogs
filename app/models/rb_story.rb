@@ -1,4 +1,5 @@
 class RbStory < Issue
+  acts_as_list_with_gaps :default => (Backlogs.setting[:new_story_position] == 'bottom' ? 'bottom' : 'top')
   RELEASE_RELATIONSHIP = %w(auto initial continued added)
 
   private
@@ -310,7 +311,7 @@ class RbStory < Issue
   def calculate_release_burndown_data(days, release_burndown_id)
     baseline = [0] * days.size
 
-    series = Backlogs::MergedArray.new
+    series = BacklogsMergedArray.new
     series.merge(:total_points => baseline.dup)
     series.merge(:closed_points => baseline.dup)
     series.merge(:added_points => baseline.dup)

@@ -30,7 +30,7 @@ class RbSprintsController < RbApplicationController
   end
 
   def update
-    result = @sprint.update_attributes(rb_sprint_params)
+    result = @sprint.update! rb_sprint_params
 
     respond_to do |format|
       format.html { render partial: "sprint", status: (result ? 200 : 400), locals: {sprint: @sprint, cls: 'model sprint'} }
@@ -66,7 +66,7 @@ class RbSprintsController < RbApplicationController
 
   def reset
     unless @sprint.sprint_start_date
-      render :text => 'Sprint without start date cannot be reset', :status => 400
+      render :plain => 'Sprint without start date cannot be reset', :status => 400
       return
     end
 
@@ -74,7 +74,7 @@ class RbSprintsController < RbApplicationController
     default_status_id = Tracker.find(Backlogs.setting[:task_tracker]).default_status_id
     Issue.where(fixed_version_id: @sprint.id).find_each {|issue|
       ids << issue.id.to_s
-      issue.update_attributes!(created_on: @sprint.sprint_start_date.to_time, status_id: default_status_id)
+      issue.update!(:created_on => @sprint.sprint_start_date.to_time, :status_id => default_status_id)
     }
     if ids.size != 0
       ids = ids.join(',')
@@ -102,7 +102,7 @@ class RbSprintsController < RbApplicationController
     if @sprint.stories.open.any?
       flash[:error] = l(:error_cannot_close_sprint_with_open_stories)
     else
-      @sprint.update_attributes({:status => 'closed'})
+      @sprint.update({:status => 'closed'})
     end
     redirect_to :controller => 'rb_master_backlogs', :action => 'show', :project_id => @project
   end

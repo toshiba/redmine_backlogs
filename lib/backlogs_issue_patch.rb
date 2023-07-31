@@ -1,7 +1,7 @@
 require_dependency 'issue'
+require_relative 'backlogs/active_record/list_with_gaps'
 
-module Backlogs
-  module IssuePatch
+module BacklogsIssuePatch
     def self.included(base) # :nodoc:
       base.extend(ClassMethods)
       base.send(:include, InstanceMethods)
@@ -205,7 +205,6 @@ module Backlogs
 
 
     end
-  end
 end
 
-Issue.send(:include, Backlogs::IssuePatch) unless Issue.included_modules.include? Backlogs::IssuePatch
+Issue.send(:include, BacklogsIssuePatch) unless Issue.included_modules.include? BacklogsIssuePatch

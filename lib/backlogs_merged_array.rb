@@ -1,5 +1,4 @@
-module Backlogs
-  class MergedArray
+module BacklogsMergedArray
     class FlexObject < Hash
       def initialize(data = {})
         super
@@ -95,5 +94,4 @@ module Backlogs
     def inspect
       return @data.collect{|d| d.inspect}.join("\n")
     end
-  end
 end
