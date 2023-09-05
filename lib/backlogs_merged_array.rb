@@ -1,4 +1,4 @@
-module BacklogsMergedArray
+class BacklogsMergedArray
     class FlexObject < Hash
       def initialize(data = {})
         super
