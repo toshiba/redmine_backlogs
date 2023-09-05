@@ -1,7 +1,7 @@
 require_dependency 'projects_helper'
 
 module BacklogsProjectsHelperPatch
-    def project_settinags_tabs
+    def project_settings_tabs
       tabs = super
       tabs << {:name => 'backlogs',
         :action => :manage_project_backlogs,
