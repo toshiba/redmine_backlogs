@@ -404,3 +404,12 @@ See RB.Taskboard.initialize()
 #project_quick_jump_box{
   max-width: 300px;
 }
+
+/*
+  Without this z-indexing, the user cannot enter characters in text fields
+  on the 'New Task' popup window (Subject, Description, etc.) when the
+  Hide Sidebar* plugin is installed together with the Backlogs plugin.
+*/
+#task_editor {
+  z-index: 0 !important;
+}
