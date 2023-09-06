@@ -21,7 +21,12 @@ class RbSprintsController < RbApplicationController
       end
     end
 
-    result = @sprint.save
+    begin
+      result = @sprint.save!
+    rescue => e
+      render :plain => e.message.blank? ? e.to_s : e.message, :status => 400
+      return
+    end
     status = (result ? 200 : 400)
 
     respond_to do |format|
@@ -30,7 +35,12 @@ class RbSprintsController < RbApplicationController
   end
 
   def update
-    result = @sprint.update! rb_sprint_params
+    begin
+      result = @sprint.update! rb_sprint_params
+    rescue => e
+      render :plain => e.message.blank? ? e.to_s : e.message, :status => 400
+      return
+    end
 
     respond_to do |format|
       format.html { render partial: "sprint", status: (result ? 200 : 400), locals: {sprint: @sprint, cls: 'model sprint'} }

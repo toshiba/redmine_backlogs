@@ -6,7 +6,7 @@ class RbSprint < Version
   validate :start_and_end_dates
 
   def start_and_end_dates
-    errors.add(:base, "sprint_end_before_start") if self.effective_date && self.sprint_start_date && self.sprint_start_date >= self.effective_date
+    errors.add(:base, I18n.t("error_sprint_end_before_start")) if self.effective_date && self.sprint_start_date && self.sprint_start_date >= self.effective_date
   end
 
   scope :open_sprints, lambda { |project| open_or_locked.by_date.in_project(project) }
