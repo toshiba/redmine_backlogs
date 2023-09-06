@@ -227,3 +227,4 @@ en:
          story/task properties
       * State will be set to the default issue state
   error_cannot_close_sprint_with_open_stories: "Cannot close a sprint while it still has open stories."
+  error_task_not_exist: "This task has already been deleted and no longer exists."
