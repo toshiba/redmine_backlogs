@@ -59,7 +59,8 @@ class RbMasterBacklogsController < RbApplicationController
   def menu
     links = []
 
-    links += _menu_new if User.current.allowed_to?(:create_stories, @project)
+    is_closed_sprint = @sprint && @sprint.status.eql?('closed')
+    links += _menu_new if User.current.allowed_to?(:create_stories, @project) && !is_closed_sprint
 
     links << {:label => l(:label_new_sprint), :url => '#', :classname => 'add_new_sprint'
              } unless @sprint || !User.current.allowed_to?(:create_sprints, @project)
@@ -91,7 +92,7 @@ class RbMasterBacklogsController < RbApplicationController
     links << {:label => l(:label_reset),
               :url => url_for(:controller => 'rb_sprints', :action => 'reset', :sprint_id => @sprint, :only_path => true),
               :warning => view_context().escape_javascript(l(:warning_reset_sprint)).gsub(/\/n/, "\n")
-             } if @sprint && @sprint.sprint_start_date && User.current.allowed_to?(:reset_sprint, @project)
+             } if @sprint && @sprint.sprint_start_date && User.current.allowed_to?(:reset_sprint, @project) && !is_closed_sprint
     links << {:label => l(:label_version),
               :url => url_for(:controller => 'versions', :action => 'show', :id => @sprint, :target => '_blank', :only_path => true)
              } if @sprint

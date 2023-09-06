@@ -130,7 +130,7 @@ RB.Backlog = RB.Object.create({
           menu.find('.add_new_sprint').bind('mouseup', self.handleNewSprintClick);
         }
         // capture 'click' instead of 'mouseup' so we can preventDefault();
-        menu.find('.show_burndown_chart').bind('click', function(ev){ self.showBurndownChart(ev); });
+        menu.find('.show_burndown_chart').bind('click', function(ev){ self.showBurndownChart(ev, null); });
       }
     });
   },
@@ -326,13 +326,16 @@ RB.Backlog = RB.Object.create({
     sprint_points.qtip('option', 'content.text', tracker_summary);
   },
 
-  showBurndownChart: function(event){
+  showBurndownChart: function(event, sprint_id){
     event.preventDefault();
     if (RB.$("#charts").length === 0){
       RB.$( document.createElement("div") ).attr('id', "charts").appendTo("body");
     }
+    if(!sprint_id) {
+      sprint_id = this.getSprint().data('this').getID();
+    }
     RB.$('#charts').html( "<div class='loading'>Loading data...</div>");
-    RB.$('#charts').load( RB.urlFor('show_burndown_embedded', { id: this.getSprint().data('this').getID() }) );
+    RB.$('#charts').load( RB.urlFor('show_burndown_embedded', { id: sprint_id }) );
     RB.$('#charts').dialog({ 
                           buttons: { "Close": function() { RB.$('#charts').dialog("close"); } },
                           height: 590,
