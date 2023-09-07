@@ -230,3 +230,4 @@ ja:
       * ステータスはチケットのデフォルトのステータスになります
   error_cannot_close_sprint_with_open_stories: "オープン中のストーリーが存在するためストーリーを閉じることができません"
   error_task_not_exist: "タスクは既に削除されており、存在しません。"
+  error_sprint_duration_maximum_three_months: "スプリントの長さは最長3ヶ月までです。"
