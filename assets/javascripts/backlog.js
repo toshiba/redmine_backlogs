@@ -288,7 +288,7 @@ RB.Backlog = RB.Object.create({
     o.edit();
     story.find('.editor' ).first().focus();
     RB.$('html,body').animate({
-        scrollTop: story.find('.editor').first().offset().top-100
+        scrollTop: story.find('.subject.editor').first().offset().top-100
         }, 200);
   },
   
