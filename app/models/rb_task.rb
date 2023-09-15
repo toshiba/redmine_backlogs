@@ -188,9 +188,9 @@ class RbTask < Issue
     id = nil if id.respond_to?('blank?') && id.blank?
     if id.nil?
       sib = self.siblings
-      move_to_right_of sib[-1].id if sib.any?
+      move_to_right_of sib[-1] if sib.any?
     else
-      move_to_left_of id
+      move_to_left_of Issue.find(id)
     end
   end
 
