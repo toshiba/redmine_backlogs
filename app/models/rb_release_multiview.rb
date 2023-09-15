@@ -6,6 +6,7 @@ class RbReleaseMultiview < ActiveRecord::Base
   serialize :release_ids
 
   validates_presence_of :project_id, :name
+  validates_length_of :name, :maximum => 64
 
   include Backlogs::ActiveRecord::Attributes
 
