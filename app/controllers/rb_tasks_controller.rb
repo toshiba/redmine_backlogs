@@ -26,6 +26,10 @@ class RbTasksController < RbApplicationController
   def update
     params.permit!
     @task = RbTask.find_by_id(params[:id])
+    if @task.nil?
+      render :plain => l(:error_task_not_exist), :status => 400
+      return
+    end
     @settings = Backlogs.settings
     result = @task.update_with_relationships(params)
     status = (result ? 200 : 400)
