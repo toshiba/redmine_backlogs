@@ -260,7 +260,7 @@ ul li { vertical-align: bottom; } /* close IE7 gap between list items */
 }
 
 #backlogs_container .closedbacklog .menu{
-  display:none;
+  display:block;
 }
 
 #backlogs_container .closedbacklog .headertext{
