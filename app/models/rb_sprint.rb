@@ -4,9 +4,14 @@ class RbSprint < Version
   unloadable
 
   validate :start_and_end_dates
+  validate :duration_3months
 
   def start_and_end_dates
     errors.add(:base, I18n.t("error_sprint_end_before_start")) if self.effective_date && self.sprint_start_date && self.sprint_start_date >= self.effective_date
+  end
+
+  def duration_3months
+    errors.add(:base, I18n.t('error_sprint_duration_maximum_three_months')) if self.effective_date && self.sprint_start_date && self.effective_date > self.sprint_start_date + 3.months
   end
 
   scope :open_sprints, lambda { |project| open_or_locked.by_date.in_project(project) }
